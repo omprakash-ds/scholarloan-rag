@@ -1,0 +1,10 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+data/pages_cache/
+data/emb_*.npy
+.DS_Store
+
+.env

@@ -1,0 +1,9 @@
+{
+  "method": "hybrid",
+  "chunk_words": 120,
+  "overlap": 30,
+  "embedder": "sentence-transformers/all-MiniLM-L6-v2",
+  "tau": 0.4368,
+  "n_questions": 31,
+  "tuned_on": "eval_questions.csv"
+}

@@ -1,0 +1,32 @@
+id,question,answerable,expected_doc,expected_page,verified,notes
+1,How much scholarship does the AICTE Pragati scheme give per year and for how many years?,yes,aicte_pragati_scholarship_guidelines.pdf,2,yes,SEED p.2 (Rs. 50000 per annum; max 4 years / 3 for lateral entry)
+2,Does a student who fails to get promoted to the next year keep the Pragati scholarship?,yes,aicte_pragati_scholarship_guidelines.pdf,4,yes,SEED p.4 (forfeits)
+3,What is the maximum gap allowed between passing the qualifying exam and admission for Pragati?,yes,aicte_pragati_scholarship_guidelines.pdf,4,yes,SEED p.4 (not more than two years)
+4,Within what time can a student raise a grievance about the Pragati merit list?,yes,aicte_pragati_scholarship_guidelines.pdf,4,yes,SEED p.4 (within a month)
+5,On what basis are Pragati scholarships awarded?,yes,aicte_pragati_scholarship_guidelines.pdf,2|3,yes,SEED p.2|3 (merit of 10+2 marks)
+6,What is the minimum and maximum number of Pragati scholarships for a state?,yes,aicte_pragati_scholarship_guidelines.pdf,5,yes,SEED p.5 (min 50 and max 800)
+7,Who is eligible for the Puducherry central sector scholarship?,yes,central_sector_scholarship_guidelines.pdf,1,yes,SEED p.1 (Indian nationals who are residents of Puducherry)
+8,Can I take another scholarship together with the Puducherry central sector scholarship?,yes,central_sector_scholarship_guidelines.pdf,2,yes,SEED p.2 (should not avail any other scholarship)
+9,Is Aadhaar mandatory for the Puducherry central sector scholarship?,yes,central_sector_scholarship_guidelines.pdf,3,yes,SEED p.3
+10,For how many months in an academic year is the Puducherry scholarship paid?,yes,central_sector_scholarship_guidelines.pdf,1,yes,SEED p.1 (10 months)
+11,Can I claim CSIS interest subsidy for both an undergraduate and a postgraduate course?,yes,pm_usp_csis_subsidy_guidelines_2022.pdf,1,yes,SEED p.1 (admissible only once)
+12,Which banks' education loans are covered by the CSIS interest subsidy?,yes,pm_usp_csis_subsidy_guidelines_2022.pdf,1,yes,SEED p.1 (Scheduled Banks / RRBs / Co-operative Banks linked to IBA)
+13,What is the current RBI repo rate?,no,,,yes,Out of scope
+14,Which hostel facilities does IIT Bombay offer?,no,,,yes,Out of scope
+15,How do I apply for a student visa to Canada?,no,,,yes,Out of scope
+16,What is the last date to apply on the National Scholarship Portal this year?,no,,,yes,Out of scope (no specific closing date in corpus)
+17,What interest rate does a specific bank charge on education loans?,no,,,yes,Out of scope (no bank-specific rate in corpus)
+18,What is the minimum margin required for an education loan up to Rs. 4 lakh under the IBA scheme?,yes,iba_model_education_loan_2022.pdf,7,yes,IBA p.7 (Nil up to 4.00 lakhs)
+19,Can a student get an interest concession under the IBA scheme for paying interest during the study period?,yes,iba_model_education_loan_2022.pdf,9,yes,IBA p.9 (1% interest concession at bank discretion)
+20,What documents does a student applicant need to submit for an IBA education loan?,yes,iba_model_education_loan_2022.pdf,6,yes,IBA p.6 (List of documents required)
+21,Does PM-Vidyalaxmi require collateral or a guarantor for education loans at QHEIs?,yes,pm_vidyalaxmi_scheme_guidelines.pdf,2,yes,PM-Vidyalaxmi p.2 (collateral-free and guarantor-free)
+22,Can a student claim PM-Vidyalaxmi interest subvention and credit guarantee more than once?,yes,pm_vidyalaxmi_scheme_guidelines.pdf,4,yes,PM-Vidyalaxmi p.4 (admissible only once)
+23,How are the 1 lakh beneficiaries selected for interest subvention under PM-Vidyalaxmi?,yes,pm_vidyalaxmi_scheme_guidelines.pdf,5,yes,PM-Vidyalaxmi p.5 (sequential method)
+24,Does a student lose the Dr. Ambedkar overseas interest subsidy if they give up Indian citizenship?,yes,dr_ambedkar_overseas_interest_subsidy.pdf,2,yes,Dr. Ambedkar p.2 (not given if citizenship given up)
+25,Can the Dr. Ambedkar overseas interest subsidy continue if the moratorium period is extended?,yes,dr_ambedkar_overseas_interest_subsidy.pdf,8,yes,Dr. Ambedkar p.8 (FAQ on extended moratorium)
+26,How can I recover my OTR number if I forget it on the National Scholarship Portal?,yes,pm_usp_csss_faq_guidelines.pdf,4,yes,PM-USP CSSS FAQ p.4 (Forgot OTR option)
+27,Where can a student file a grievance about a PM-USP scholarship application?,yes,pm_usp_csss_faq_guidelines.pdf,7,yes,PM-USP CSSS FAQ p.7 (FAQ #26)
+28,How long after non-payment due to a wrong bank account number can a Saksham scholarship query be raised?,yes,aicte_saksham_scholarship_guidelines.pdf,4,yes,AICTE Saksham p.4 (up to six months)
+29,How are degree-level candidates selected for the AICTE Swanath scholarship?,yes,aicte_swanath_scholarship_guidelines.pdf,4,yes,AICTE Swanath p.4 (Criteria of selection)
+30,What is the monthly stipend under the UGC Ishan Uday scholarship?,no,,,yes,Near-miss: scheme not loaded in corpus
+31,What processing fee does HDFC Credila charge for US education loans?,no,,,yes,Near-miss: private NBFC not loaded in corpus

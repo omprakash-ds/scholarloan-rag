@@ -1,0 +1,3 @@
+# Optional: only needed for scanned PDFs (python ingest.py --ocr)
+rapidocr-onnxruntime
+pypdfium2
