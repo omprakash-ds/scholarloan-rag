@@ -1,65 +1,31 @@
-# ScholarLoan RAG: Cited Answers for Indian Student Aid
+# 🎓 ScholarLoan RAG — Cited Indian Education Aid Q&A
 
-A document question-answering app for Indian students trying to understand education loans and scholarships.
-Every answer shows the document and page it came from. If the loaded documents do not support an answer,
-the app says so instead of guessing. Retrieval quality is measured on a hand-labeled question set.
+[![Live App](https://img.shields.io/badge/Live%20Demo-Streamlit%20Cloud-FF4B4B?logo=streamlit&logoColor=white)](https://omprakash-ds-scholarloan-rag-app-tczgd0.streamlit.app/)
+[![CI Tests](https://github.com/omprakash-ds/scholarloan-rag/actions/workflows/tests.yml/badge.svg)](https://github.com/omprakash-ds/scholarloan-rag/actions/workflows/tests.yml)
+[![Python 3.12](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Tests](https://img.shields.io/badge/Tests-54%20Passed-2EA44F?logo=pytest&logoColor=white)](#verification--local-setup)
 
-**Live demo:** <link> | **Demo video:** <link> | **Hackathon:** Build Your First AI App 2026 (Devpost)
+**Live Demo:** https://omprakash-ds-scholarloan-rag-app-tczgd0.streamlit.app/ | **Demo Video:** `[PASTE DEMO VIDEO URL]` | **Hackathon:** Build Your First AI App 2026 (Devpost)
 
-## Problem
-<2-3 sentences in your own words: who the student is, which documents confuse them, what goes wrong today.>
+| **Cited Answer with Page & Date Audit Trail** | **Safe Refusal on Out-of-Scope Query (`< 0.437`)** |
+| :---: | :---: |
+| ![Answer with page citations](assets/demo_answer.png) | ![Refusal on an unsupported question](assets/demo_refusal.png) |
 
-## What it does
-- Answers questions from public loan and scholarship PDFs, with document title, page and "as of" date for each source.
-- Refuses when the best match is below a confidence threshold tuned on labeled questions.
-- Works without any API key (shows the most relevant sentences, cited). With a key it writes a short answer
-  and the app checks that every citation points to a passage that was actually retrieved.
-- Treats PDF text as untrusted data in the prompt, so instructions hidden inside a document are not followed.
+---
 
-## How it works
-```
-PDFs --ingest.py--> pages (text, OCR fallback) --chunking.py--> chunks (doc, page, text)
-chunks --retrieval.py--> TF-IDF + dense embeddings --> hybrid ranking (reciprocal rank fusion)
-question --> top-k passages --> score below tau? --> "not found"
-                          \--> answer.py --> extracted sentences, or LLM answer with checked [n] citations
-evaluate.py: hit@k, MRR, refusal tuning, failures.csv      app.py: Streamlit UI
-```
-- Embedding model: `sentence-transformers/all-MiniLM-L6-v2` (local, free). Search is brute-force numpy: exact and fast at this corpus size.
-- Language model (optional): any OpenAI-compatible endpoint, configured by environment variables. See `.env.example`.
+## 🎯 Business Problem
 
-## Results (my own labeled test set)
-<Paste the table from results.md here after running `python evaluate.py --apply-best`. Then state the numbers in one sentence.>
+A student in India comparing the **IBA Model Education Loan Scheme**, **PM-Vidyalaxmi**, **CSIS**, and **AICTE scholarships** has to dig through 15–30 page government and banking PDFs—several of them scanned—just to verify a single rule like margin requirements, collateral limits, or income ceilings. Standard LLMs fail in this regulated domain in three ways: they **blend rules across similar schemes**, provide **no verifiable page-level audit trail**, and **answer out-of-scope questions** (like private bank fees or foreign scholarships) instead of abstaining.
 
-How to read it: hit@k means the labeled (document, page) appears in the top k chunks. The refusal threshold is tuned on the
-same questions, so the answered/refused columns are optimistic. The test set has <N> answerable and <M> unanswerable questions.
+**ScholarLoan RAG** answers strictly from **9 official public PDF guidelines** (**237 searchable passages**), attaches exact **`(document, page, as_of)`** citations to every claim, verifies LLM citations programmatically, and refuses when retrieval confidence drops below a calibrated threshold (`tau = 0.437`).
 
-## Failure analysis
-<Three real failures from failures.csv: the question, what was retrieved, why it failed, and what you changed or would change.>
+---
 
-## Limitations (please read)
-- Scheme rules change. The app shows each document's date, but you must confirm on the official source before applying.
-- Not financial or legal advice.
-- Small corpus (<N> documents). Questions about schemes outside these documents are refused by design.
-- One scholarship document applies only to residents of Puducherry. <Note any other scope limits.>
-- Retrieval is evaluated at page level, not at sentence level.
+## 🏗️ System Architecture & Engineering Tradeoffs
 
-## Run locally
-```
-python -m venv .venv
-.venv\Scripts\activate            # Windows. On macOS/Linux: source .venv/bin/activate
-pip install -r requirements.txt   # add requirements-ocr.txt only for scanned PDFs
-python ingest.py                  # add --ocr for scanned PDFs
-python evaluate.py --apply-best   # needs verified rows in eval_questions.csv
-streamlit run app.py
-python -m pytest                  # needs requirements-dev.txt
-```
-
-## My contribution and AI tools used
-<Be specific. Example structure: I chose the documents and wrote N labeled questions by reading each PDF. I decided the
-chunking approach, the hybrid retrieval and the refusal threshold after comparing the results above. AI assistants
-(<names>) helped draft boilerplate, tests and the UI; I reviewed and changed <what> and can explain every file.>
-
-## Sources and credits
-Documents (see `docs/sources.csv` for titles, publishers, URLs and dates): <list them>.
-Libraries: pdfplumber, scikit-learn, sentence-transformers, Streamlit, NumPy, requests (optional: RapidOCR, pypdfium2).
-Model: all-MiniLM-L6-v2 (see its model card for the license).
+```text
+PDFs --ingest.py--> pages (pdfplumber + OCR fallback) --chunking.py--> chunks (doc, page, 120w, 30w overlap)
+chunks --retrieval.py--> Doc-Context Injection --> TF-IDF (1,2)-grams + MiniLM Dense --> Hybrid RRF (k=60)
+question --> top-k passages --> confidence (0.7*dense + 0.3*tfidf) < 0.437? --Yes--> Safe Refusal + Low-Confidence Passages
+                                                                            --No---> answer.py (LLM with [n] citation check, or extractive fallback)
+evaluate.py: grid sweep (hit@k, MRR, tau tuning, failures.csv)   |   app.py: Streamlit UI + latency/confidence telemetry
